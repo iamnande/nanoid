@@ -27,7 +27,7 @@ var (
 )
 
 // NanoID is a 16 byte, tiny, secure, URL-friendly, unique ID.
-type NanoID [16]byte
+type NanoID [defaultLength]byte
 
 // String is a stringer method for NanoID.
 func (id NanoID) String() string {
@@ -59,8 +59,8 @@ func Must(nanoID NanoID, err error) NanoID {
 
 // NewID returns a new NanoID.
 //
-// The strength of the NanoID is based on the strength of the crypto/rand
-// package as it uses the randomness pool.
+// The strength of the NanoID is based on the strength of the crypto/rand and
+// the size of the ID.
 func NewID() (NanoID, error) {
 
 	// new: initialize empty ID container
