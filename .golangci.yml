@@ -1,0 +1,124 @@
+run:
+  modules-download-mode: readonly
+
+# all available settings of specific linters
+linters-settings:  
+  govet:
+    disable-all: true
+    settings:
+      printf:
+        funcs:
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Infof
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Warnf
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Errorf
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Fatalf
+    enable:
+      - assign
+      - atomic
+      - bools
+      - buildtag
+      - composites
+      - copylocks
+      - errorsas
+      - nilfunc
+      - printf
+      - stdmethods
+      - structtag
+      - tests
+      - unreachable
+      - unusedresult
+  goimports:
+    local-prefixes: github.com/iamnande
+  gocyclo:
+    min-complexity: 10
+  maligned:
+    suggest-new: true
+  dupl:
+    threshold: 25
+  depguard:
+    list-type: blacklist
+    include-go-root: false
+  gocritic:
+    enabled-tags:
+      - performance
+    settings:
+      captLocal:
+        paramsOnly: true
+      rangeValCopy:
+        sizeThreshold: 32
+  revive:
+    ignore-generated-header: true
+    severity: error
+    confidence: 0.3
+    rules:
+      - name: blank-imports
+        severity: error
+      - name: context-as-argument
+        severity: error
+      - name: dot-imports
+        severity: error
+      - name: error-return
+        severity: error
+      - name: error-strings
+        severity: error
+      - name: error-naming
+        severity: error
+      - name: exported
+        severity: error
+      - name: if-return
+        severity: error
+      - name: increment-decrement
+        severity: error
+      - name: var-naming
+        severity: error
+      - name: package-comments
+        severity: error
+      - name: range
+        severity: error
+      - name: receiver-naming
+        severity: error
+      - name: indent-error-flow
+        severity: error
+      - name: empty-block
+        severity: error
+      - name: superfluous-else
+        severity: error
+      - name: unused-parameter
+        severity: error
+      - name: unreachable-code
+        severity: error
+      - name: redefines-builtin-id
+        severity: error
+
+linters:
+  disable-all: true
+  enable:
+    - deadcode
+    - errcheck
+    - goconst
+    - godot
+    - gofmt
+    - goimports
+    - gosec
+    - govet
+    - ineffassign
+    - lll
+    - makezero
+    - misspell
+    - predeclared
+    - revive
+    - typecheck
+    - varcheck
+  fast: false
+
+issues:
+  exclude-rules:
+    # exclude generate lines
+    - linters:
+        - lll
+      source: "^//go:generate"
+
+    # exclude URLs
+    - linters:
+        - lll
+      source: "http?s://"
